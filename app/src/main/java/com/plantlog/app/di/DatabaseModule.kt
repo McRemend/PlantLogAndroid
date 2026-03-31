@@ -22,12 +22,7 @@ object DatabaseModule {
     
     @Provides
     @Singleton
-    fun provideContext(application: PlantLogApplication): Context =
-        application
-    
-    @Provides
-    @Singleton
-    fun provideDatabase(context: Context): PlantLogDatabase =
+    fun provideDatabase(@ApplicationContext context: Context): PlantLogDatabase =
         PlantLogDatabase.getDatabase(context)
     
     @Provides
