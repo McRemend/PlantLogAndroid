@@ -27,6 +27,5 @@ object AppModule {
     
     @Provides
     @Singleton
-    @ApplicationContext
-    fun provideApplicationContext(@ApplicationContext app: PlantLogApplication): Context = app
+    fun provideContext(application: PlantLogApplication): Context = application
 }
