@@ -21,8 +21,9 @@ import javax.inject.Singleton
 object DatabaseModule {
     
     @Provides
-    fun provideDatabase(application: PlantLogApplication): PlantLogDatabase =
-        PlantLogDatabase.getDatabase(application)
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context): PlantLogDatabase =
+        PlantLogDatabase.getDatabase(context)
     
     @Provides
     @Singleton
