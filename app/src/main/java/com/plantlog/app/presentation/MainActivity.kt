@@ -10,13 +10,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.plantlog.app.presentation.navigation.PlantLogNavHost
 import com.plantlog.app.ui.theme.PlantLogTheme
-import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * 主 Activity
  * 应用入口点，设置 Compose 内容和导航
  */
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
