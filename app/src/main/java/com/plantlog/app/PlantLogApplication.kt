@@ -26,5 +26,6 @@ object AppModule {
     
     @Provides
     @Singleton
+    @android.content.ContextWrapper
     fun provideContext(application: PlantLogApplication): Context = application
 }
