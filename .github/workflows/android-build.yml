@@ -34,8 +34,16 @@ jobs:
       run: chmod +x gradlew
       
     - name: 🏗️ Build Debug APK
-      run: ./gradlew assembleDebug --stacktrace --info
+      run: ./gradlew assembleDebug --stacktrace --info 2>&1 | tee build.log
       
+    - name: 📊 Upload Build Log (Always)
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: build-log
+        path: build.log
+        retention-days: 7
+        
     - name: 📦 Upload Debug APK
       uses: actions/upload-artifact@v4
       if: always()
@@ -55,4 +63,9 @@ jobs:
           ls -lh app/build/outputs/apk/debug/*.apk >> $GITHUB_STEP_SUMMARY
         else
           echo "❌ APK not found" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Build Log (last 100 lines)" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -100 build.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
         fi
