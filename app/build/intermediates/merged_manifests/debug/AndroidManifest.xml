@@ -23,7 +23,7 @@
         android:label="🌿 植记 PlantLog"
         android:roundIcon="@android:drawable/ic_menu_gallery"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Material3.DayNight.NoActionBar" >
+        android:theme="@android:style/Theme.Material.Light.NoActionBar" >
         <activity
             android:name="com.plantlog.mini.MainActivity"
             android:exported="true" >

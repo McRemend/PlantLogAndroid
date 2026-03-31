@@ -1,0 +1,1 @@
+/root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/java/com/plantlog/mini/MainActivity.kt

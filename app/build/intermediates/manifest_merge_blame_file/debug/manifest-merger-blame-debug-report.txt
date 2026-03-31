@@ -35,8 +35,8 @@
 24-->/root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/AndroidManifest.xml:7:9-62
 25        android:supportsRtl="true"
 25-->/root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/AndroidManifest.xml:8:9-35
-26        android:theme="@style/Theme.Material3.DayNight.NoActionBar" >
-26-->/root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/AndroidManifest.xml:9:9-68
+26        android:theme="@android:style/Theme.Material.Light.NoActionBar" >
+26-->/root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/AndroidManifest.xml:9:9-72
 27        <activity
 27-->/root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/AndroidManifest.xml:10:9-17:20
 28            android:name="com.plantlog.mini.MainActivity"

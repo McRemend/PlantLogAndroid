@@ -87,7 +87,7 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /root/.gradle/caches/transf
 	android:allowBackup
 		ADDED from /root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/AndroidManifest.xml:4:9-35
 	android:theme
-		ADDED from /root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/AndroidManifest.xml:9:9-68
+		ADDED from /root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/AndroidManifest.xml:9:9-72
 activity#com.plantlog.mini.MainActivity
 ADDED from /root/.openclaw/workspace/PlantLogAndroid-Mini/app/src/main/AndroidManifest.xml:10:9-17:20
 	android:exported
