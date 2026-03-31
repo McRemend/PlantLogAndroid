@@ -44,14 +44,22 @@ jobs:
         path: build.log
         retention-days: 7
         
+    - name: 📦 Verify APK exists
+      run: |
+        echo "Checking for APK files..."
+        ls -lh app/build/outputs/apk/debug/ || true
+        find app/build/outputs -name "*.apk" || true
+        
     - name: 📦 Upload Debug APK
       uses: actions/upload-artifact@v4
       if: always()
       with:
         name: PlantLog-debug
-        path: app/build/outputs/apk/debug/*.apk
+        path: |
+          app/build/outputs/apk/debug/app-debug.apk
+          app/build/outputs/apk/debug/*.apk
         retention-days: 30
-        if-no-files-found: ignore
+        if-no-files-found: warn
         
     - name: 📊 Build Summary
       if: always()
