@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">植记 PlantLog</string>
+    <string name="home_title">我的植物</string>
+    <string name="add_plant">添加植物</string>
+    <string name="plant_detail">植物详情</string>
+    <string name="water_reminder">浇水提醒</string>
+    <string name="care_records">护理记录</string>
+    <string name="plant_name">植物名称</string>
+    <string name="scientific_name">学名</string>
+    <string name="nickname">昵称</string>
+    <string name="water_interval">浇水间隔</string>
+    <string name="notes">备注</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="delete">删除</string>
+    <string name="edit">编辑</string>
+    <string name="water">浇水</string>
+    <string name="fertilize">施肥</string>
+    <string name="prune">修剪</string>
+    <string name="days">天</string>
+    <string name="needs_water">需要浇水</string>
+    <string name="next_water_in">%d 天后浇水</string>
+    <string name="empty_plant_list">还没有植物\n点击右下角按钮添加你的第一盆植物</string>
+    <string name="plant_identified">识别成功</string>
+    <string name="identification_failed">识别失败</string>
+    <string name="notification_channel_name">浇水提醒</string>
+    <string name="notification_channel_description">植物浇水提醒通知</string>
+</resources>

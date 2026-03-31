@@ -1,0 +1,71 @@
+name: 🤖 Android APK Build
+
+on:
+  push:
+    branches: [ main, master ]
+    tags:
+      - 'v*'  # 创建 release tag 时触发，如 v1.0.0
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: ☕ Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+        
+    - name: 📱 Set up Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        cmdline-tools-version: 9.0
+        packages: 'platform-tools,platforms;android-35,build-tools;34.0.0'
+        
+    - name: 🔧 Grant execute permission for gradlew
+      run: chmod +x gradlew
+      
+    - name: 🧪 Run tests (可选)
+      run: ./gradlew test
+      continue-on-error: true  # 测试失败不阻断构建
+      
+    - name: 🏗️ Build Debug APK
+      run: ./gradlew assembleDebug
+      
+    - name: 🏗️ Build Release APK
+      run: ./gradlew assembleRelease
+      continue-on-error: true  # 如果没有签名配置，release 构建会失败
+      
+    - name: 📦 Upload Debug APK (Always)
+      uses: actions/upload-artifact@v4
+      with:
+        name: PlantLog-debug
+        path: app/build/outputs/apk/debug/*.apk
+        retention-days: 30
+        
+    - name: 📦 Upload Release APK (If exists)
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: PlantLog-release
+        path: app/build/outputs/apk/release/*.apk
+        retention-days: 30
+        if-no-files-found: ignore
+        
+    - name: 📊 Build Summary
+      run: |
+        echo "## 🏗️ Build Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Debug APK" >> $GITHUB_STEP_SUMMARY
+        ls -lh app/build/outputs/apk/debug/*.apk 2>/dev/null || echo "❌ Debug APK not found" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Release APK" >> $GITHUB_STEP_SUMMARY
+        ls -lh app/build/outputs/apk/release/*.apk 2>/dev/null || echo "❌ Release APK not found (可能需要签名配置)" >> $GITHUB_STEP_SUMMARY
