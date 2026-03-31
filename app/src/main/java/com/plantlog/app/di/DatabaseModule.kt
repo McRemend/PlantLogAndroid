@@ -1,6 +1,7 @@
 package com.plantlog.app.di
 
 import android.content.Context
+import com.plantlog.app.PlantLogApplication
 import com.plantlog.app.data.local.CareRecordDao
 import com.plantlog.app.data.local.PlantDao
 import com.plantlog.app.data.local.PlantLogDatabase
