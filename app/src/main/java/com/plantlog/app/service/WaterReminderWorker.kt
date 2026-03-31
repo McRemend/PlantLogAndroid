@@ -23,7 +23,11 @@ class WaterReminderWorker(
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
     
-    private val plantRepository = PlantRepository.getInstance()
+    // 临时简化：直接创建 Repository 实例
+    private val plantRepository = run {
+        val db = com.plantlog.app.data.local.PlantLogDatabase.getDatabase(context)
+        PlantRepository(db.plantDao(), db.careRecordDao())
+    }
     
     companion object {
         const val CHANNEL_ID = "water_reminder_channel"
