@@ -7,26 +7,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.plantlog.app.R
 import com.plantlog.app.data.repository.PlantRepository
 import com.plantlog.app.domain.mapper.toDomain
 import com.plantlog.app.presentation.MainActivity
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 
 /**
  * 浇水提醒后台任务
  * 定期检查需要浇水的植物并发送通知
  */
-@HiltWorker
-class WaterReminderWorker @AssistedInject constructor(
-    @Assisted context: Context,
-    @Assisted workerParams: WorkerParameters,
-    private val plantRepository: PlantRepository
+class WaterReminderWorker(
+    context: Context,
+    workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
+    
+    private val plantRepository = PlantRepository.getInstance()
     
     companion object {
         const val CHANNEL_ID = "water_reminder_channel"
