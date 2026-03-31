@@ -22,8 +22,8 @@ object DatabaseModule {
     
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): PlantLogDatabase =
-        PlantLogDatabase.getDatabase(context)
+    fun provideDatabase(application: PlantLogApplication): PlantLogDatabase =
+        PlantLogDatabase.getDatabase(application)
     
     @Provides
     @Singleton
