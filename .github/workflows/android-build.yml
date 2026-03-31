@@ -9,6 +9,9 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+env:
+  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false -Dkotlin.incremental=false"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,26 +30,29 @@ jobs:
     - name: 📱 Set up Android SDK
       uses: android-actions/setup-android@v3
       
-    - name: 🔧 Install required SDK components
-      run: |
-        sdkmanager --install "platform-tools" "platforms;android-34" "build-tools;34.0.0"
-        
     - name: 🔧 Grant execute permission for gradlew
       run: chmod +x gradlew
       
     - name: 🏗️ Build Debug APK
-      run: ./gradlew assembleDebug --no-daemon
+      run: ./gradlew assembleDebug --stacktrace --info
       
     - name: 📦 Upload Debug APK
       uses: actions/upload-artifact@v4
+      if: always()
       with:
         name: PlantLog-debug
         path: app/build/outputs/apk/debug/*.apk
         retention-days: 30
+        if-no-files-found: ignore
         
     - name: 📊 Build Summary
+      if: always()
       run: |
         echo "## 🏗️ Build Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### Debug APK" >> $GITHUB_STEP_SUMMARY
-        ls -lh app/build/outputs/apk/debug/*.apk 2>/dev/null && echo "✅ APK generated" >> $GITHUB_STEP_SUMMARY || echo "❌ APK not found" >> $GITHUB_STEP_SUMMARY
+        if ls app/build/outputs/apk/debug/*.apk 1>/dev/null 2>&1; then
+          echo "✅ APK generated" >> $GITHUB_STEP_SUMMARY
+          ls -lh app/build/outputs/apk/debug/*.apk >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ APK not found" >> $GITHUB_STEP_SUMMARY
+        fi
