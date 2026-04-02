@@ -80,6 +80,9 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+    // ML Kit - 图像识别
+    implementation("com.google.mlkit:image-labeling:17.0.7")
+
     // Room
     implementation("androidx.room:room-runtime:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
