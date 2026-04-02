@@ -36,10 +36,22 @@ jobs:
         
     - name: Make gradlew executable
       run: chmod +x gradlew
-      
+
+    - name: Create local.properties
+      run: |
+        echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+        
     - name: Build with Gradle
       run: |
-        ./gradlew clean assembleDebug --no-daemon
+        ./gradlew clean assembleDebug --no-daemon --stacktrace 2>&1 | tee build.log
+        echo "=== Build Status ==="
+        if [ $? -eq 0 ]; then
+          echo "✅ Build successful"
+        else
+          echo "❌ Build failed"
+          cat build.log | tail -100
+          exit 1
+        fi
         echo "=== APK 文件列表 ==="
         find . -name "*.apk" -ls
         
