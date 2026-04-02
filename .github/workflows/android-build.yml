@@ -29,13 +29,13 @@ jobs:
         export ANDROID_SDK_ROOT=$HOME/android-sdk
         mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
         
-        # Download command line tools
-        wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
+        # Download command line tools (using stable version 9477386)
+        wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
         unzip -q cmdline-tools.zip -d $ANDROID_SDK_ROOT/cmdline-tools/
         mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools $ANDROID_SDK_ROOT/cmdline-tools/latest
         
         # Add to PATH
-        export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+        export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools
         
         # Accept licenses and install packages
         yes | sdkmanager --licenses || true
@@ -44,6 +44,7 @@ jobs:
         # Set environment variables for subsequent steps
         echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
         echo "PATH=$PATH" >> $GITHUB_ENV
+        echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
       
     - name: 🔧 chmod
       run: chmod +x gradlew
@@ -53,7 +54,11 @@ jobs:
         keytool -genkey -v -keystore app/release.keystore -alias androiddebugkey -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
       
     - name: 🏗️ Build Release APK
-      run: ./gradlew assembleRelease --stacktrace
+      run: |
+        echo "Starting Gradle build..."
+        echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+        echo "ANDROID_HOME=$ANDROID_HOME"
+        ./gradlew assembleRelease --stacktrace --info
       
     - name: 📦 Verify APK
       run: |
