@@ -61,13 +61,12 @@ jobs:
         ls -lh app/build/outputs/apk/debug/ 2>/dev/null || echo "Debug APK directory not found"
         
     - name: 📤 Upload APK
-      if: success()
-      uses: actions/upload-artifact@v4
+      if: always()
+      uses: actions/upload-artifact@v3
       with:
         name: PlantLog-Debug-APK
         path: app/build/outputs/apk/debug/app-debug.apk
         retention-days: 30
-        if-no-files-found: error
         
     - name: 📊 Summary
       if: always()
