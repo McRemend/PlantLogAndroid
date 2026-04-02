@@ -40,7 +40,7 @@ jobs:
       run: chmod +x gradlew
       
     - name: 🏗️ Build Debug APK
-      run: ./gradlew assembleDebug --stacktrace
+      run: ./gradlew assembleDebug --no-daemon --info
       
     - name: 📦 Verify APK
       run: |
