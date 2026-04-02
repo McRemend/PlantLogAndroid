@@ -6,6 +6,13 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.20-1.0.14" apply false
 }
 
+// 统一版本管理
+extra.apply {
+    set("kotlin_version", "1.9.20")
+    set("hilt_version", "2.51.1")
+    set("ksp_version", "1.9.20-1.0.14")
+}
+
 tasks.register("clean", Delete::class) {
     delete(rootProject.layout.buildDirectory)
 }
